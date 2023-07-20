@@ -1,6 +1,6 @@
 /*
 [rewrite_local]
-https://h5.ele.me/crossdomainstorage.html url script-request-header https://raw.githubusercontent.com/Chibinl/vip/main/Script/elmgetcookie.js
+https://h5.ele.me/crossdomainstorage.html url script-request-header https://raw.githubusercontent.com/sumuen/elmgetcookie_qx/master/elmgetcookie.js
 */
 const CookieName = '饿了么'
 const CookieKey = 'cookie_elem'
@@ -19,7 +19,7 @@ function GetCookie() {
         if (!cookie) {
           sy.msg("更新" + CookieName + "Cookie失败‼️", "", "");
         } else {
-          sy.msg("更新" + CookieName + "Cookie成功 🎉", "", "");
+          sy.msg("更新" + CookieName + "Cookie成功 🎉",CookieValue, "", "");
         }
       }
     } else {
@@ -27,7 +27,7 @@ function GetCookie() {
       if (!cookie) {
         sy.msg("首次写入" + CookieName + "Cookie失败‼️", "", "");
       } else {
-        sy.msg("首次写入" + CookieName + "Cookie成功 🎉", "", "");
+        sy.msg("首次写入" + CookieName + "Cookie成功 🎉", CookieValue,"", "");
       }
     }
   } else {
