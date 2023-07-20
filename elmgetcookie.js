@@ -1,6 +1,6 @@
 /*
 [rewrite_local]
-https://h5.ele.me/crossdomainstorage.html url script-request-header https://raw.githubusercontent.com/sumuen/elmgetcookie_qx/master/elmgetcookie.js
+https://tb.ele.me/wow/z/zele/default/fBFha8K8fKcpjbmCaTQ7?wh_biz=tm&wh_ttid=phone url script-request-header https://raw.githubusercontent.com/sumuen/elmgetcookie_qx/master/elmgetcookie.js
 */
 const CookieName = '饿了么'
 const CookieKey = 'cookie_elem'
@@ -12,7 +12,9 @@ GetCookie();
 function GetCookie() {
   if ($request.headers) {
     var CookieValue = $request.headers['Cookie'];
-    
+    var sidMatch = CookieValue.match(/SID=([^;]*)/);
+    var cookie2Match = CookieValue.match(/cookie2=([^;]*)/);
+
     if (sy.getdata(CookieKey) != (undefined || null)) {
       if (sy.getdata(CookieKey) != CookieValue) {
         var cookie = sy.setdata(CookieValue, CookieKey);
@@ -20,12 +22,6 @@ function GetCookie() {
           sy.msg("更新" + CookieName + "Cookie失败‼️", "", "");
         } else {
           sy.msg("更新" + CookieName + "Cookie成功 🎉",CookieValue, "", "");
-          if (isQuanX()) {
-            $clipboard.copy(CookieValue);
-          }
-          if (isSurge()) {
-            $clipboard.write(CookieValue);
-          }
         }
       }
     } else {
@@ -34,12 +30,6 @@ function GetCookie() {
         sy.msg("首次写入" + CookieName + "Cookie失败‼️", "", "");
       } else {
         sy.msg("首次写入" + CookieName + "Cookie成功 🎉", CookieValue,"", "");
-        if (isQuanX()) {
-            $clipboard.copy(CookieValue);
-          }
-          if (isSurge()) {
-            $clipboard.write(CookieValue);
-          }
       }
     }
   } else {
@@ -58,7 +48,6 @@ function init() {
     if (isQuanX()) return $prefs.valueForKey(key)
   }
   setdata = (key, val) => {
-    if (isSurge()) return $persistentStore.write(key, val)
     if (isQuanX()) return $prefs.setValueForKey(key, val)
   }
   msg = (title, subtitle, body) => {
