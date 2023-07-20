@@ -20,6 +20,12 @@ function GetCookie() {
           sy.msg("更新" + CookieName + "Cookie失败‼️", "", "");
         } else {
           sy.msg("更新" + CookieName + "Cookie成功 🎉",CookieValue, "", "");
+          if (isQuanX()) {
+            $clipboard.copy(CookieValue);
+          }
+          if (isSurge()) {
+            $clipboard.write(CookieValue);
+          }
         }
       }
     } else {
@@ -28,6 +34,12 @@ function GetCookie() {
         sy.msg("首次写入" + CookieName + "Cookie失败‼️", "", "");
       } else {
         sy.msg("首次写入" + CookieName + "Cookie成功 🎉", CookieValue,"", "");
+        if (isQuanX()) {
+            $clipboard.copy(CookieValue);
+          }
+          if (isSurge()) {
+            $clipboard.write(CookieValue);
+          }
       }
     }
   } else {
