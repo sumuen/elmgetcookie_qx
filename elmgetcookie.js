@@ -62,7 +62,7 @@ function GetCookie() {
       reject(`获取用户信息失败，状态码: ${response.status}`);
     }
   });
-  sy.msg("elm账号" + name, "", "");
+  sy.msg("elm账号" + username, "", "");
 }
 function getUserDetail(finalcookie, cookieName) {
   // 添加参数finalcookie和cookieName
