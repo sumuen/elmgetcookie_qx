@@ -37,7 +37,7 @@ function GetCookie() {
         sy.msg("getUserDetail失败", "", "");
       });
   }
-  sy.msg(name, "", "");
+  sy.msg("elm账号"+name, "", "");
 
 }
 function getUserDetail(finalcookie, cookieName) {
