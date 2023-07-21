@@ -50,19 +50,13 @@ function GetCookie() {
   sy.get(url, (error, response, data) => {
     // 使用sy.get发送GET请求
     var obj = JSON.parse(data);
-    if (response.status == 200) {
-      // 处理返回的用户信息
-      var username = obj.username;
+
+      name = obj.username;
 
       sy.msg(`获取用户信息成功: `, obj);
       resolve(obj.username); // 解析用户名
-    } else {
-      // 处理错误状态
-      sy.msg(`获取用户信息失败，状态码: `, response.status);
-      reject(`获取用户信息失败，状态码: ${response.status}`);
-    }
   });
-  sy.msg("elm账号" + username, "", "");
+  sy.msg("elm账号" + name, "", "");
 }
 function getUserDetail(finalcookie, cookieName) {
   // 添加参数finalcookie和cookieName
