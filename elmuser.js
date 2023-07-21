@@ -24,6 +24,7 @@ function getUserDetail() {
         }
         var obj = JSON.parse(data);
         var username = obj.username;
+        console.log(response.body);
         console.log(`获取用户信息成功: `, username);
         doNotify();
         sy.done();
