@@ -28,7 +28,6 @@ function GetCookie() {
       sy.msg("写入" + CookieName + "Cookie失败‼️" + "缺少cookie2", "", "");
     }
     var cookie = sy.setdata(finalcookie, CookieKey);
-    sy.msg("Cookie成功🎉，开始查询用户名", "", "");
     getUserDetail(finalcookie, CookieName)
       .then((name) => {
         // 在这里处理用户名
@@ -38,6 +37,8 @@ function GetCookie() {
         sy.msg("getUserDetail失败", "", "");
       });
   }
+  sy.msg("Cookie成功🎉，开始查询用户名", "", "");
+
 }
 function getUserDetail(finalcookie, cookieName) {
   // 添加参数finalcookie和cookieName
