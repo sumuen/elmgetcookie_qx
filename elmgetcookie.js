@@ -28,7 +28,7 @@ function GetCookie() {
       sy.msg("写入" + CookieName + "Cookie失败‼️" + "缺少cookie2", "", "");
     }
     var cookie = sy.setdata(finalcookie, CookieKey);
-    getUserDetail(finalcookie, "CookieName")
+    getUserDetail(finalcookie, CookieName)
       .then((name) => {
         // 在这里处理用户名
         sy.msg("elm账号" + name + "刷新Cookie成功🎉", "", "");
