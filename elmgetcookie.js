@@ -52,16 +52,6 @@ function getUserDetail(finalcookie, cookieName) {
           Connection: "close",
         },
       };
-
-      if (
-        finalcookie == undefined ||
-        finalcookie == "0" ||
-        finalcookie == null
-      ) {
-        sy.msg(cookieName, "未获取Cookie", "");
-        resolve("failed"); // 如果没有cookie，resolve Promise为'failed'
-        return;
-      }
       sy.get(url, (error, response, data) => {
         // 使用sy.get发送GET请求
         var obj = JSON.parse(data);
@@ -69,16 +59,16 @@ function getUserDetail(finalcookie, cookieName) {
           // 处理返回的用户信息
           var username = obj.username;
           sy.msg(username, "", "");
-          console.log(`获取用户信息成功: `, obj);
+          sy.msg(`获取用户信息成功: `, obj);
           resolve(obj.username); // 解析用户名
         } else {
           // 处理错误状态
-          console.log(`获取用户信息失败，状态码: `, response.status);
+          sy.msg(`获取用户信息失败，状态码: `, response.status);
           reject(`获取用户信息失败，状态码: ${response.status}`);
         }
       });
     } catch (err) {
-      console.log(`Error: ${err}`);
+      sy.msg(`Error: ${err}`);
       reject(err); // 当捕获到错误时，reject这个Promise
     }
   });
