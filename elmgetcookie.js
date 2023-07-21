@@ -1,41 +1,73 @@
 /*
 [rewrite_local]
-https://tb.ele.me/wow/z/zele/default/fBFha8K8fKcpjbmCaTQ7?wh_biz=tm&wh_ttid=phone url script-request-header https://raw.githubusercontent.com/sumuen/elmgetcookie_qx/master/elmgetcookie.js
+https://h5.ele.me/crossdomainstorage.html url script-request-header https://raw.githubusercontent.com/sumuen/elmgetcookie_qx/master/elmgetcookie.js
 */
-const CookieName = '饿了么'
-const CookieKey = 'cookie_elem'
-const UserId='user_id_elem'
-const matchid=/USERID=(\d+);/
-const sy = init()
+//脚本目前只能获取并更新一个账号的cookie，多账号的话，可以通过定义CookieKey2，CookieKey3...CookieKeyN来实现，并且
+const CookieName = "饿了么";
+const CookieKey = "cookie_elem";
+// const UserId = "user_id_elem";
+// const matchid = /USERID=(\d+);/;
+const sy = init();
 GetCookie();
 
 function GetCookie() {
   if ($request.headers) {
-    var CookieValue = $request.headers['Cookie'];
-    var sidMatch = CookieValue.match(/SID=([^;]*)/);
-    var cookie2Match = CookieValue.match(/cookie2=([^;]*)/);
-
-    if (sy.getdata(CookieKey) != (undefined || null)) {
-      if (sy.getdata(CookieKey) != CookieValue) {
-        var cookie = sy.setdata(CookieValue, CookieKey);
-        if (!cookie) {
-          sy.msg("更新" + CookieName + "Cookie失败‼️", "", "");
-        } else {
-          sy.msg("更新" + CookieName + "Cookie成功 🎉",CookieValue, "", "");
-        }
-      }
+    var CookieValue = $request.headers["Cookie"];
+    var sidMatch = CookieValue.match(/SID=[^;]*/);
+    var cookie2Match = CookieValue.match(/cookie2=[^;]*/);
+    var finalcookie = "";
+    var name = "";
+    if (sidMatch != null) {
+      finalcookie = sidMatch[0] + ";";
     } else {
-      var cookie = sy.setdata(CookieValue, CookieKey);
-      if (!cookie) {
-        sy.msg("首次写入" + CookieName + "Cookie失败‼️", "", "");
-      } else {
-        sy.msg("首次写入" + CookieName + "Cookie成功 🎉", CookieValue,"", "");
-      }
+      sy.msg("写入" + CookieName + "Cookie失败‼️" + "缺少sid", "", "");
     }
-  } else {
-    sy.msg("写入" + CookieName + "Cookie失败‼️", "", "配置错误, 无法读取请求头, ");
+    if (cookie2Match != null) {
+      finalcookie = finalcookie + cookie2Match[0] + ";";
+    } else {
+      sy.msg("写入" + CookieName + "Cookie失败‼️" + "缺少cookie2", "", "");
+    }
+    var cookie = sy.setdata(finalcookie, CookieKey);
+    sy.msg("elm账号" + Name + "刷新Cookie成功🎉", "", "");
   }
 }
+function getUserDetail() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      try {
+        var url = { 
+          url: `https://restapi.ele.me/eus/v5/user_detail`, 
+          headers: {
+            Cookie: finalcookie,
+            'user-agent': 'iPhone;3.7.0;14.4;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPhone11,6;addressid/138164461;hasOCPay/0;appBuild/1017;supportBestPay/0;pv/7.8;apprpd/;ref/JDLTSubMainPageViewController;psq/7;ads/;psn/d40e5d4a33c100e8527f779557c347569b49c304|7;jdv/0|kong|t_1001226363_|jingfen|3bf5372cb9cd445bbb270b8bc9a34f00|1608439066693|1608439068;adk/;app_device/IOS;pap/JA2020_3112531|3.7.0|IOS 14.4;Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
+            host: 'restapi.ele.me',
+            Connection: 'close',
+          },
+        };
+        }
+
+        if (finalcookie == undefined || finalcookie == "0" || finalcookie == null) {
+          sy.msg(cookieName, "未获取Cookie", '');
+          return;
+        }
+        sy.get(url, (error, response, data) => {  // 使用sy.get发送GET请求
+          var obj = JSON.parse(data);
+          if (response.status == 200) {
+            // 处理返回的用户信息
+            console.log(`获取用户信息成功: `, obj);
+          } else {
+            // 处理错误状态
+            console.log(`获取用户信息失败，状态码: `, response.status);
+          }
+          resolve('done');
+        })
+      } catch (err) {
+        resolve('done')
+      }
+    });
+  })
+}
+
 function init() {
   isSurge = () => {
     return undefined === this.$httpClient ? false : true
@@ -48,6 +80,7 @@ function init() {
     if (isQuanX()) return $prefs.valueForKey(key)
   }
   setdata = (key, val) => {
+    if (isSurge()) return $persistentStore.write(key, val)
     if (isQuanX()) return $prefs.setValueForKey(key, val)
   }
   msg = (title, subtitle, body) => {
