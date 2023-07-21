@@ -20,27 +20,23 @@ function getUserDetail() {
           headers: headerscommon,
         };
         sy.get(url, (error, response, data) => {
-          // 使用sy.get发送GET请求
-          var obj = JSON.parse(data);
-          if (response.status == 200) {
-            // 处理返回的用户信息
-            var username = obj.username;
-            console.log(`获取用户信息成功: `, username);
-            resolve(obj.username); // 解析用户名
-          } else {
-            // 处理错误状态
-            console.log(`获取用户信息失败，状态码: `, response.status);
-            reject(`获取用户信息失败，状态码: ${response.status}`);
+            // 使用sy.get发送GET请求
+            var obj = JSON.parse(data);
+              // 处理返回的用户信息
+              var username = obj.username;
+              console.log(`获取用户信息成功: `, username);
+              doNotify()
+              sy.done()
+              resolve('done');
+            })
           }
-        });
-      } catch (err) {
-        console.log(`Error: ${err}`);
-        reject(err); // 当捕获到错误时，reject这个Promise
-      }
-    });
-    doNotify();
-    sy.done()
-  }
+          catch (erre) {
+            resolve('done')
+          }
+        })
+
+}
+    
 
   function doNotify() {
   
