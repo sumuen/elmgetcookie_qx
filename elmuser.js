@@ -3,6 +3,7 @@ const cookieName = '饿了么'
 const cookieKey = 'cookie_elem'
 const sy = init()
 var cookieVal = sy.getdata(cookieKey);
+console.log(cookieVal)
 getUserDetail()
 function getUserDetail() {
     return new Promise((resolve) => {
