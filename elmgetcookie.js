@@ -34,7 +34,7 @@ function GetCookie() {
         sy.msg("elm账号" + name + "刷新Cookie成功🎉", "", "");
       })
       .catch((err) => {
-        sy.msg("elm刷新Cookie成功🎉", "", "");
+        sy.msg("getUserDetail失败", "", "");
       });
   }
 }
