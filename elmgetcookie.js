@@ -37,7 +37,7 @@ function GetCookie() {
         sy.msg("getUserDetail失败", "", "");
       });
   }
-  sy.msg("Cookie成功🎉，开始查询用户名", "", "");
+  sy.msg(name, "", "");
 
 }
 function getUserDetail(finalcookie, cookieName) {
