@@ -1,4 +1,5 @@
-const delay = 3000;
+const jsname = '饿了么用户名查询'
+const $ = new Env(jsname)
 const cookieName = "饿了么";
 const cookieKey = "cookie_elem";
 const sy = init();
