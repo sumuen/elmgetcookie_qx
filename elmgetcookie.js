@@ -27,7 +27,7 @@ function GetCookie() {
     } else {
       sy.msg("写入" + CookieName + "Cookie失败‼️" + "缺少cookie2", "", "");
     }
-    var cookie = sy.setdata(finalcookie, CookieKey);
+    var cookie = sy.setdata(CookieValue, CookieKey);
     // getUserDetail(finalcookie, CookieName)
     //   .then((name) => {
     //     // 在这里处理用户名
